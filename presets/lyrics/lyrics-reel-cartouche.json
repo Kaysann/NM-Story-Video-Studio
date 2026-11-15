@@ -1,0 +1,29 @@
+{
+  "family": "lyrics",
+  "id": "lyrics-reel-cartouche",
+  "description": "Cartouche pour Reels (texte plus grand, centré bas)",
+  "value": {
+    "font": "Georgia",
+    "fontSize": {
+      "min": 0.03,
+      "max": 0.042
+    },
+    "weight": 600,
+    "color": "#F5EBDD",
+    "accent": "#F0B429",
+    "align": "center",
+    "lines": 1,
+    "karaoke": "line",
+    "enter": "fade",
+    "maxWidth": 0.95,
+    "type": "cartouche",
+    "position": "lower-third",
+    "panel": {
+      "opacity": 0.5,
+      "blur": 10,
+      "radius": 0.025,
+      "border": null,
+      "color": "#000000"
+    }
+  }
+}

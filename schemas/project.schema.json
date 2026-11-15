@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/project/v1.json",
+  "title": "Projet audiovisuel NMSVS (fichier humain)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "title", "audio", "lyrics", "fps", "formats", "art"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "../common/v1.json#/$defs/id" },
+    "title": { "type": "string", "minLength": 1 },
+    "audio": {
+      "type": "object", "additionalProperties": false, "required": ["master"],
+      "properties": { "master": { "$ref": "../common/v1.json#/$defs/relPath" }, "offsetSec": { "type": "number" } }
+    },
+    "preroll": {
+      "description": "Préambule de présentation : la vidéo commence sec secondes avant le master audio (silence numérique ajouté à l'assemblage). Toutes les ancres musicales restent en temps chanson ; le premier plan est prolongé jusqu'à l'image 0, caméra figée.",
+      "type": "object", "additionalProperties": false, "required": ["sec"],
+      "properties": { "sec": { "type": "number", "minimum": 0, "maximum": 30 } }
+    },
+    "lyrics": { "$ref": "../common/v1.json#/$defs/relPath" },
+    "fps": { "enum": [24, 25, 30, 50, 60] },
+    "formats": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": { "$ref": "../common/v1.json#/$defs/formatId" },
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "required": ["width", "height"],
+        "properties": {
+          "width": { "type": "integer", "minimum": 64, "maximum": 7680, "multipleOf": 2 },
+          "height": { "type": "integer", "minimum": 64, "maximum": 7680, "multipleOf": 2 },
+          "safeZone": { "oneOf": [{ "$ref": "../common/v1.json#/$defs/presetRef" }, { "$ref": "../common/v1.json#/$defs/safeZone" }] }
+        }
+      }
+    },
+    "art": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "lyricStyle": { "$ref": "../common/v1.json#/$defs/lyricsStyleRef" },
+        "transitionDefault": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+        "motionCycle": { "type": "array", "minItems": 1, "items": { "$ref": "../common/v1.json#/$defs/presetRef" } },
+        "colorLook": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "lut": { "type": "string" }, "intensity": { "$ref": "../common/v1.json#/$defs/unit" } }
+        },
+        "harmonize": {
+          "type": "object", "additionalProperties": false, "required": ["mode"],
+          "properties": { "mode": { "enum": ["auto", "off"] }, "strength": { "$ref": "../common/v1.json#/$defs/unit" }, "reference": { "$ref": "../common/v1.json#/$defs/id" } }
+        },
+        "fonts": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "lyrics": { "type": "string" }, "titles": { "type": "string" } }
+        },
+        "palette": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "text": { "$ref": "../common/v1.json#/$defs/color" }, "accent": { "$ref": "../common/v1.json#/$defs/color" }, "shadow": { "$ref": "../common/v1.json#/$defs/color" } }
+        },
+        "shotLength": {
+          "type": "object", "additionalProperties": false, "required": ["min", "max"],
+          "properties": { "min": { "type": "number", "minimum": 1 }, "max": { "type": "number", "minimum": 1 } }
+        },
+        "vignette": { "$ref": "../common/v1.json#/$defs/unit" },
+        "grain": { "$ref": "../common/v1.json#/$defs/unit" },
+        "lyricLeadSec": { "type": "number", "minimum": 0, "maximum": 2 },
+        "lyricTailSec": { "type": "number", "minimum": 0, "maximum": 3 },
+        "maxUpscale": { "type": "number", "minimum": 1, "maximum": 4 }
+      }
+    },
+    "sync": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "engine": { "enum": ["whisperx", "stable-ts", "uniform"] },
+        "preprocess": { "enum": ["vocal-focus", "none"] },
+        "asrModel": { "type": "string" },
+        "alignModel": { "type": "string" }
+      }
+    },
+    "exportProfiles": { "type": "array", "items": { "$ref": "../common/v1.json#/$defs/id" } },
+    "reels": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "format": { "$ref": "../common/v1.json#/$defs/formatId" },
+        "lyricStyle": { "$ref": "../common/v1.json#/$defs/lyricsStyleRef" },
+        "titleCard": { "type": "boolean" },
+        "fadeInSec": { "type": "number", "minimum": 0, "maximum": 3 },
+        "fadeOutSec": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    }
+  }
+}

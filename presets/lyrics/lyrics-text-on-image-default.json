@@ -1,0 +1,25 @@
+{
+  "family": "lyrics",
+  "id": "lyrics-text-on-image-default",
+  "description": "Texte sur image : ombre douce, contour fin, voile si nécessaire",
+  "value": {
+    "font": "Georgia",
+    "fontSize": {
+      "min": 0.035,
+      "max": 0.055
+    },
+    "weight": 600,
+    "color": "#F5EBDD",
+    "accent": "#F0B429",
+    "align": "center",
+    "lines": 1,
+    "karaoke": "word",
+    "enter": "fade",
+    "maxWidth": 0.9,
+    "type": "text-on-image",
+    "position": "lower-third",
+    "shadow": true,
+    "stroke": 0.04,
+    "scrim": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "family": "transition",
+  "id": "crossfade-long",
+  "description": "Fondu enchaîné de deux temps",
+  "value": {
+    "type": "crossfade",
+    "duration": {
+      "beats": 2
+    }
+  }
+}

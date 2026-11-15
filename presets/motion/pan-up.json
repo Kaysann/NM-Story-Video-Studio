@@ -1,0 +1,17 @@
+{
+  "family": "motion",
+  "id": "pan-up",
+  "description": "Panoramique vertical bas → haut (échelle 1,15)",
+  "value": {
+    "type": "pan",
+    "from": {
+      "scale": 1.15,
+      "y": 1
+    },
+    "to": {
+      "scale": 1.15,
+      "y": 0
+    },
+    "easing": "inOutSine"
+  }
+}

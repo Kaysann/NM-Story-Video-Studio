@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/credits/v1.json",
+  "title": "Modèle de générique réutilisable (fichier humain, hors projet)",
+  "description": "Séquences de fin (fond fixe, personnages animés, transitions, fondu final) partagées entre projets. Les médias sont désignés par des emplacements nommés, résolus par chaque projet (racines de médias ou assets du projet) : aucun média n'est copié ni déplacé.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "media", "sequences"],
+  "$defs": {
+    "mediaRef": {
+      "description": "Chemin de fichier (absolu, ou relatif à une racine de médias ; recherché aussi par son seul nom) ou asset du projet appelant",
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        { "type": "object", "additionalProperties": false, "required": ["asset"], "properties": { "asset": { "$ref": "../common/v1.json#/$defs/id" } } }
+      ]
+    },
+    "roots": {
+      "oneOf": [{ "type": "string", "minLength": 1 }, { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }]
+    },
+    "sequence": {
+      "type": "object", "additionalProperties": false, "required": ["id", "background"],
+      "properties": {
+        "id": { "$ref": "../common/v1.json#/$defs/id" },
+        "background": { "$ref": "../common/v1.json#/$defs/id", "description": "Emplacement média du fond (image plein cadre)" },
+        "durationSec": { "type": "number", "exclusiveMinimum": 0, "description": "Durée de la séquence ; absente sur la dernière : jusqu'à la fin de la musique" },
+        "motion": { "$ref": "../common/v1.json#/$defs/motionRef" },
+        "transitionIn": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+        "transitionOut": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+        "sprites": { "type": "array", "items": { "$ref": "../timeline/v1.json#/$defs/sprite" }, "description": "Personnages animés ; `frames` = emplacements média des poses" },
+        "note": { "type": "string" }
+      }
+    },
+    "sequencePatch": {
+      "type": "object", "additionalProperties": false,
+      "description": "Surcharge partielle d'une séquence par le projet ; sprites fusionnés par identifiant",
+      "properties": {
+        "durationSec": { "type": "number", "exclusiveMinimum": 0 },
+        "motion": { "$ref": "../common/v1.json#/$defs/motionRef" },
+        "transitionIn": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+        "transitionOut": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+        "sprites": { "type": "array", "items": { "type": "object", "required": ["id"], "properties": { "id": { "$ref": "../common/v1.json#/$defs/id" } } } }
+      }
+    },
+    "creditsRef": {
+      "type": "object", "additionalProperties": false, "required": ["template", "from"],
+      "description": "Appel d'un générique réutilisable depuis timeline.json : séquences ajoutées après la dernière scène",
+      "properties": {
+        "template": { "type": "string", "minLength": 1, "description": "Fichier modèle (*.credits.json), absolu ou relatif au dossier du projet" },
+        "from": { "$ref": "../common/v1.json#/$defs/timeAnchor", "description": "Début du générique (= fin de la dernière scène)" },
+        "mediaRoot": { "$ref": "#/$defs/roots", "description": "Racine(s) des médias, relatives au projet ou absolues ; prioritaires sur celles du modèle" },
+        "media": { "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/id" }, "additionalProperties": { "$ref": "#/$defs/mediaRef" } },
+        "overrides": { "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/id" }, "additionalProperties": { "$ref": "#/$defs/sequencePatch" } }
+      }
+    }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "../common/v1.json#/$defs/id" },
+    "title": { "type": "string" },
+    "mediaRoot": { "$ref": "#/$defs/roots", "description": "Racine(s) par défaut, relatives au fichier modèle ou absolues" },
+    "media": { "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/id" }, "additionalProperties": { "$ref": "#/$defs/mediaRef" } },
+    "sequences": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/sequence" } }
+  }
+}

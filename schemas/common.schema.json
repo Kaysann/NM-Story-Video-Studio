@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/common/v1.json",
+  "title": "Définitions communes NMSVS",
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "lineId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*\\.l[0-9]+$" },
+    "wordId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*\\.l[0-9]+\\.w[0-9]+$" },
+    "formatId": { "type": "string", "pattern": "^[0-9]+x[0-9]+$" },
+    "presetRef": { "type": "string", "pattern": "^preset:[a-z0-9][a-z0-9-]*$" },
+    "relPath": { "type": "string", "minLength": 1, "not": { "pattern": "(^[a-zA-Z]:|^/|\\.\\.)" } },
+    "color": { "type": "string", "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
+    "unit": { "type": "number", "minimum": 0, "maximum": 1 },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "point": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y"],
+      "properties": { "x": { "$ref": "#/$defs/unit" }, "y": { "$ref": "#/$defs/unit" } }
+    },
+    "rect": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": { "$ref": "#/$defs/unit" }, "y": { "$ref": "#/$defs/unit" },
+        "w": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }, "h": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      }
+    },
+    "margins": {
+      "type": "object", "additionalProperties": false, "required": ["top", "right", "bottom", "left"],
+      "properties": {
+        "top": { "type": "number", "minimum": 0, "maximum": 0.45 }, "right": { "type": "number", "minimum": 0, "maximum": 0.45 },
+        "bottom": { "type": "number", "minimum": 0, "maximum": 0.45 }, "left": { "type": "number", "minimum": 0, "maximum": 0.45 }
+      }
+    },
+    "safeZone": {
+      "type": "object", "additionalProperties": false, "required": ["title", "action"],
+      "properties": { "title": { "$ref": "#/$defs/margins" }, "action": { "$ref": "#/$defs/margins" } }
+    },
+    "easing": { "enum": ["linear", "inOutSine", "inOutCubic", "outExpo", "inOutQuad"] },
+    "cameraKey": {
+      "type": "object", "additionalProperties": false,
+      "properties": { "scale": { "type": "number", "minimum": 1, "maximum": 2 }, "x": { "$ref": "#/$defs/unit" }, "y": { "$ref": "#/$defs/unit" } }
+    },
+    "motion": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": {
+        "type": { "enum": ["zoom", "pan", "drift", "still", "parallax", "beat-pulse"] },
+        "from": { "$ref": "#/$defs/cameraKey" }, "to": { "$ref": "#/$defs/cameraKey" },
+        "easing": { "$ref": "#/$defs/easing" },
+        "pulse": {
+          "type": "object", "additionalProperties": false, "required": ["intensity", "every"],
+          "properties": { "intensity": { "type": "number", "minimum": 0, "maximum": 0.05 }, "every": { "type": "integer", "minimum": 1 } }
+        },
+        "depth": { "type": "number", "minimum": 0, "maximum": 0.2 },
+        "extends": { "$ref": "#/$defs/presetRef" }
+      }
+    },
+    "motionRef": { "oneOf": [{ "$ref": "#/$defs/presetRef" }, { "$ref": "#/$defs/motion" }] },
+    "transition": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": {
+        "type": { "enum": ["cut", "crossfade", "fade-black", "dip-color", "slide", "zoom-through", "wipe", "blur-dissolve", "page-turn"] },
+        "duration": {
+          "oneOf": [
+            { "type": "object", "additionalProperties": false, "required": ["beats"], "properties": { "beats": { "type": "number", "minimum": 0, "maximum": 32 } } },
+            { "type": "object", "additionalProperties": false, "required": ["sec"], "properties": { "sec": { "type": "number", "minimum": 0, "maximum": 10 } } }
+          ]
+        },
+        "color": { "$ref": "#/$defs/color" },
+        "direction": { "enum": ["left", "right", "up", "down"] },
+        "shape": { "enum": ["linear", "radial"] },
+        "extends": { "$ref": "#/$defs/presetRef" }
+      }
+    },
+    "transitionRef": { "oneOf": [{ "$ref": "#/$defs/presetRef" }, { "$ref": "#/$defs/transition" }] },
+    "fontSize": {
+      "type": "object", "additionalProperties": false, "required": ["min", "max"],
+      "properties": { "min": { "type": "number", "minimum": 0.01, "maximum": 0.3 }, "max": { "type": "number", "minimum": 0.01, "maximum": 0.3 } }
+    },
+    "lyricsStyle": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": {
+        "type": { "enum": ["text-on-image", "parchment", "cartouche", "none"] },
+        "font": { "type": "string" },
+        "fontSize": { "$ref": "#/$defs/fontSize" },
+        "weight": { "type": "integer", "minimum": 100, "maximum": 900 },
+        "color": { "$ref": "#/$defs/color" },
+        "accent": { "$ref": "#/$defs/color" },
+        "position": { "enum": ["lower-third", "center", "upper-third", "auto"] },
+        "align": { "enum": ["left", "center", "right"] },
+        "lines": { "enum": [1, 2] },
+        "flow": { "enum": ["static", "scroll", "phrase"], "description": "scroll : ligne chantée au premier plan, ligne suivante en attente dessous, qui monte au moment du chant ; phrase : une phrase à la fois (lignes jusqu'à la ponctuation finale, au plus `lines`), chaque ligne apparaissant à son chant" },
+        "sceneBreak": { "type": "boolean", "description": "Mode phrase : le conteneur se referme à chaque changement de scène (un parchemin par page) au lieu de persister tant que le chant continue ; il est absent pendant les transitions entre scènes (fermé au début de la transition, rouvert à sa fin)" },
+        "centerX": { "type": "number", "minimum": 0, "maximum": 1, "description": "Centre horizontal du conteneur et du texte (fraction de la largeur du cadre) ; défaut : centre de la zone sûre" },
+        "leadSec": { "type": "number", "minimum": 0, "maximum": 2, "description": "Avance d'affichage propre au style (défaut : art.lyricLeadSec) ; 0 = jamais avant le chant" },
+        "karaoke": { "enum": ["none", "line", "word"] },
+        "enter": { "enum": ["fade", "rise", "reveal"] },
+        "shadow": { "type": "boolean" },
+        "stroke": { "type": "number", "minimum": 0, "maximum": 0.2 },
+        "scrim": { "type": "boolean" },
+        "maxWidth": { "type": "number", "minimum": 0.3, "maximum": 1 },
+        "panel": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "opacity": { "$ref": "#/$defs/unit" }, "blur": { "type": "number", "minimum": 0, "maximum": 60 },
+            "radius": { "type": "number", "minimum": 0, "maximum": 0.1 },
+            "border": { "oneOf": [{ "$ref": "#/$defs/color" }, { "type": "null" }] }, "color": { "$ref": "#/$defs/color" }
+          }
+        },
+        "parchment": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "texture": { "$ref": "#/$defs/id" }, "orientation": { "enum": ["horizontal", "vertical"] },
+            "unrollSec": { "type": "number", "minimum": 0, "maximum": 5 }, "ink": { "$ref": "#/$defs/color" },
+            "float": { "type": "number", "minimum": 0, "maximum": 0.02 },
+            "paper": {
+              "type": "object", "additionalProperties": false, "required": ["x", "y", "w", "h"],
+              "description": "Zone de papier plat de la texture (fractions de l'image) où placer le texte ; active le rendu texturé (proportions conservées, sans ombre ni rouleaux)",
+              "properties": { "x": { "$ref": "#/$defs/unit" }, "y": { "$ref": "#/$defs/unit" }, "w": { "$ref": "#/$defs/unit" }, "h": { "$ref": "#/$defs/unit" } }
+            }
+          }
+        },
+        "extends": { "$ref": "#/$defs/presetRef" }
+      }
+    },
+    "lyricsStyleRef": { "oneOf": [{ "$ref": "#/$defs/presetRef" }, { "$ref": "#/$defs/lyricsStyle" }] },
+    "titleStyle": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": {
+        "type": { "enum": ["plain", "parchment"] }, "font": { "type": "string" },
+        "size": { "type": "number", "minimum": 0.02, "maximum": 0.3 }, "color": { "$ref": "#/$defs/color" },
+        "position": { "enum": ["center", "upper-third", "lower-third"] },
+        "extends": { "$ref": "#/$defs/presetRef" }
+      }
+    },
+    "titleStyleRef": { "oneOf": [{ "$ref": "#/$defs/presetRef" }, { "$ref": "#/$defs/titleStyle" }] },
+    "timeAnchor": {
+      "type": "object",
+      "properties": {
+        "at": { "type": "number", "minimum": 0 },
+        "section": { "$ref": "#/$defs/id" },
+        "line": { "$ref": "#/$defs/lineId" },
+        "word": { "$ref": "#/$defs/wordId" },
+        "beat": { "type": "integer", "minimum": 0 },
+        "bar": { "type": "integer", "minimum": 0 },
+        "end": { "const": true },
+        "edge": { "enum": ["start", "end"] },
+        "offsetSec": { "type": "number" },
+        "snap": { "enum": ["beat", "downbeat", "none"] }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["at"] }, { "required": ["section"] }, { "required": ["line"] },
+        { "required": ["word"] }, { "required": ["beat"] }, { "required": ["bar"] }, { "required": ["end"] }
+      ]
+    }
+  }
+}

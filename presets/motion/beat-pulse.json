@@ -1,0 +1,19 @@
+{
+  "family": "motion",
+  "id": "beat-pulse",
+  "description": "Push-in léger + micro-pulsation sur un temps fort sur 2",
+  "value": {
+    "type": "beat-pulse",
+    "from": {
+      "scale": 1.02
+    },
+    "to": {
+      "scale": 1.06
+    },
+    "easing": "linear",
+    "pulse": {
+      "intensity": 0.012,
+      "every": 2
+    }
+  }
+}

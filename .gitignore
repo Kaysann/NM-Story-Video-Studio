@@ -1,0 +1,82 @@
+# Dépendances et environnements
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Cache global NMSVS (modèles, bundles, segments)
+.nmsvs/
+
+# Données générées des projets (régénérables)
+projects/*/analysis/
+projects/*/build/
+projects/*/exports/
+projects/*/reports/
+projects/*/*.bak*
+
+# Médias sources volumineux (D-11 : préservés hors Git, sauvegarde par l'utilisateur)
+projects/*/media/
+
+# Artefacts de tests et benchmarks
+tests/.tmp/
+reports/bench/
+coverage/
+*.tmp
+
+# ── Publication publique V1.1 : protection des créations et données privées ──
+# Projets audiovisuels personnels (paroles, illustrations, audio, timelines, décisions) : jamais publiés.
+/projects/
+# Rapports locaux (exécutions, recettes, campagnes) et documents internes : jamais publiés.
+/reports/
+# Médias, où qu'ils soient (protection contre les fichiers placés hors des répertoires habituels).
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.aac
+*.ogg
+*.docx
+*.doc
+*.pdf
+*.psd
+*.jpg
+*.jpeg
+*.webp
+*.tif
+*.tiff
+# Images : seules les images de référence des tests (rendues depuis des fixtures synthétiques) sont publiées.
+*.png
+!/tests/golden/*.png
+# Polices artistiques (fichiers fournis par l'utilisateur).
+*.ttf
+*.otf
+*.woff
+*.woff2
+# Modèles IA et poids.
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.ckpt
+*.gguf
+models/
+# Secrets et configurations locales.
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+secrets*
+.claude/
+*.log
+*.bak*
+
+# Bibliothèque locale de modèles réutilisables (séquences communes) : jamais publiée.
+/library/

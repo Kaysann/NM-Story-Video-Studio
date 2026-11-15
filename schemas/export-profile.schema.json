@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/export-profile/v1.json",
+  "title": "Profil d'export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "container", "video", "audio"],
+  "properties": {
+    "format": { "$ref": "../common/v1.json#/$defs/formatId" },
+    "scale": { "type": "number", "exclusiveMinimum": 0, "maximum": 2 },
+    "container": { "enum": ["mp4", "mkv", "mov"] },
+    "video": {
+      "type": "object", "additionalProperties": false, "required": ["encoder"],
+      "properties": {
+        "encoder": { "enum": ["libx264", "libx265", "h264_amf", "hevc_amf", "libsvtav1", "copy"] },
+        "crf": { "type": "number", "minimum": 0, "maximum": 51 },
+        "qp": { "type": "number", "minimum": 0, "maximum": 51 },
+        "preset": { "type": "string" },
+        "profile": { "type": "string" },
+        "level": { "type": "string" },
+        "pixFmt": { "enum": ["yuv420p", "yuv420p10le", "p010le", "nv12"] },
+        "gopSec": { "type": "number", "minimum": 0.5, "maximum": 10 },
+        "bframes": { "type": "integer", "minimum": 0, "maximum": 8 }
+      }
+    },
+    "audio": {
+      "type": "object", "additionalProperties": false, "required": ["codec"],
+      "properties": {
+        "codec": { "enum": ["aac", "flac", "pcm_s24le", "copy"] },
+        "bitrateK": { "type": "integer", "minimum": 64, "maximum": 512 },
+        "sampleRate": { "enum": [44100, 48000] }
+      }
+    },
+    "subtitles": { "type": "boolean" }
+  }
+}

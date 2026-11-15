@@ -1,0 +1,11 @@
+{
+  "family": "transition",
+  "id": "fade-black",
+  "description": "Fondu au noir / depuis le noir (une mesure)",
+  "value": {
+    "type": "fade-black",
+    "duration": {
+      "beats": 4
+    }
+  }
+}

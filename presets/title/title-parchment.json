@@ -1,0 +1,12 @@
+{
+  "family": "title",
+  "id": "title-parchment",
+  "description": "Titre sur parchemin",
+  "value": {
+    "type": "parchment",
+    "font": "Georgia",
+    "size": 0.07,
+    "color": "#3B2412",
+    "position": "center"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "family": "transition",
+  "id": "wipe-linear",
+  "description": "Volet linéaire",
+  "value": {
+    "type": "wipe",
+    "duration": {
+      "beats": 2
+    },
+    "direction": "right",
+    "shape": "linear"
+  }
+}

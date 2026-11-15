@@ -1,0 +1,19 @@
+{
+  "family": "motion",
+  "id": "drift",
+  "description": "Dérive diagonale très lente + micro-zoom",
+  "value": {
+    "type": "drift",
+    "from": {
+      "scale": 1.04,
+      "x": 0.35,
+      "y": 0.4
+    },
+    "to": {
+      "scale": 1.08,
+      "x": 0.65,
+      "y": 0.6
+    },
+    "easing": "linear"
+  }
+}

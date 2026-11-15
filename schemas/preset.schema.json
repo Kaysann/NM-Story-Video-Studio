@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/preset/v1.json",
+  "title": "Preset NMSVS (presets/<famille>/<id>.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["family", "id", "value"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "family": { "enum": ["motion", "transition", "lyrics", "title", "safe", "export", "reels-weights"] },
+    "id": { "$ref": "../common/v1.json#/$defs/id" },
+    "description": { "type": "string" },
+    "value": { "type": "object" }
+  },
+  "allOf": [
+    { "if": { "properties": { "family": { "const": "motion" } } }, "then": { "properties": { "value": { "$ref": "../common/v1.json#/$defs/motion" } } } },
+    { "if": { "properties": { "family": { "const": "transition" } } }, "then": { "properties": { "value": { "$ref": "../common/v1.json#/$defs/transition" } } } },
+    { "if": { "properties": { "family": { "const": "lyrics" } } }, "then": { "properties": { "value": { "$ref": "../common/v1.json#/$defs/lyricsStyle" } } } },
+    { "if": { "properties": { "family": { "const": "title" } } }, "then": { "properties": { "value": { "$ref": "../common/v1.json#/$defs/titleStyle" } } } },
+    { "if": { "properties": { "family": { "const": "safe" } } }, "then": { "properties": { "value": { "$ref": "../common/v1.json#/$defs/safeZone" } } } },
+    { "if": { "properties": { "family": { "const": "export" } } }, "then": { "properties": { "value": { "$ref": "../export-profile/v1.json" } } } },
+    {
+      "if": { "properties": { "family": { "const": "reels-weights" } } },
+      "then": { "properties": { "value": { "type": "object", "propertyNames": { "enum": ["hook", "energy", "lift", "vocal", "completeness", "lyric", "loopability", "uniqueness"] }, "additionalProperties": { "type": "number", "minimum": 0 } } } }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/py-contract/v1.json",
+  "title": "Contrat d'échange TypeScript ↔ worker Python",
+  "$defs": {
+    "request": {
+      "type": "object", "additionalProperties": false, "required": ["schemaVersion", "command", "inputs", "params", "workDir"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "command": { "enum": ["env-check", "analyze", "transcribe", "align", "image-stats"] },
+        "inputs": { "type": "object" },
+        "params": { "type": "object" },
+        "workDir": { "type": "string" }
+      }
+    },
+    "response": {
+      "type": "object", "additionalProperties": false, "required": ["schemaVersion", "status"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "status": { "enum": ["ok", "error"] },
+        "outputs": { "type": "object" },
+        "metrics": { "type": "object" },
+        "toolVersions": { "type": "object" },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "error": {
+          "type": "object", "additionalProperties": false, "required": ["code", "message"],
+          "properties": { "code": { "type": "string" }, "message": { "type": "string" }, "detail": {} }
+        }
+      }
+    }
+  }
+}

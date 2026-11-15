@@ -1,0 +1,11 @@
+{
+  "family": "transition",
+  "id": "blur-dissolve",
+  "description": "Fondu avec flou",
+  "value": {
+    "type": "blur-dissolve",
+    "duration": {
+      "beats": 1
+    }
+  }
+}

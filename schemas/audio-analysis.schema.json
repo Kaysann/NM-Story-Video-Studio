@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/audio-analysis/v1.json",
+  "title": "Analyse musicale (fichier machine)",
+  "type": "object",
+  "required": ["version", "audioSha256", "durationSec", "tempo", "beats", "downbeats", "rms", "segments"],
+  "$defs": {
+    "series": {
+      "type": "object", "required": ["hopSec", "values"],
+      "properties": { "hopSec": { "type": "number", "exclusiveMinimum": 0 }, "values": { "type": "array", "items": { "type": "number" } } }
+    }
+  },
+  "properties": {
+    "version": { "const": 1 },
+    "audioSha256": { "$ref": "../common/v1.json#/$defs/sha256" },
+    "durationSec": { "type": "number", "exclusiveMinimum": 0 },
+    "sampleRate": { "type": "integer" },
+    "channels": { "type": "integer" },
+    "tempo": { "type": "object", "required": ["bpm", "confidence"], "properties": { "bpm": { "type": "number" }, "confidence": { "type": "number" } } },
+    "beats": { "type": "array", "items": { "type": "number", "minimum": 0 } },
+    "downbeats": { "type": "array", "items": { "type": "number", "minimum": 0 } },
+    "meter": { "type": "integer", "minimum": 2, "maximum": 7 },
+    "onsets": { "type": "array", "items": { "type": "number" } },
+    "rms": { "$ref": "#/$defs/series" },
+    "novelty": { "$ref": "#/$defs/series" },
+    "vocalBand": { "$ref": "#/$defs/series" },
+    "chroma": { "type": "object", "required": ["hopSec", "values"], "properties": { "hopSec": { "type": "number" }, "values": { "type": "array", "items": { "type": "array", "items": { "type": "number" }, "minItems": 12, "maxItems": 12 } } } },
+    "segments": {
+      "type": "array",
+      "items": { "type": "object", "required": ["start", "end", "label"], "properties": { "start": { "type": "number" }, "end": { "type": "number" }, "label": { "type": "string" } } }
+    },
+    "loudness": { "type": "object", "properties": { "integratedLUFS": { "type": "number" }, "truePeakDBTP": { "type": "number" }, "lra": { "type": "number" } } }
+  }
+}

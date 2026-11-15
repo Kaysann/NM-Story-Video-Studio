@@ -1,0 +1,15 @@
+{
+  "family": "motion",
+  "id": "slow-push-in",
+  "description": "Zoom avant lent 1,00 → 1,08 centré sur le point focal",
+  "value": {
+    "type": "zoom",
+    "from": {
+      "scale": 1
+    },
+    "to": {
+      "scale": 1.08
+    },
+    "easing": "inOutSine"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "family": "reels-weights",
+  "id": "reels-energy-first",
+  "description": "Priorité à l’énergie et à la montée",
+  "value": {
+    "hook": 2,
+    "energy": 4,
+    "lift": 3,
+    "vocal": 1,
+    "completeness": 1.5,
+    "lyric": 0.5,
+    "loopability": 1,
+    "uniqueness": 0.5
+  }
+}

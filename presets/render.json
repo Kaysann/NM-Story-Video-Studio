@@ -1,0 +1,11 @@
+{
+  "concurrency": 8,
+  "gl": "vulkan",
+  "mezz": {
+    "codec": "h264",
+    "crf": 10,
+    "preset": "veryfast",
+    "imageFormat": "jpeg",
+    "jpegQuality": 95
+  }
+}

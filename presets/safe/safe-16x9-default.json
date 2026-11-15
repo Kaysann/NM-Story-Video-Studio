@@ -1,0 +1,19 @@
+{
+  "family": "safe",
+  "id": "safe-16x9-default",
+  "description": "Title safe 90 % / action safe 93 % (inspiré SMPTE ST 2046-1)",
+  "value": {
+    "title": {
+      "top": 0.05,
+      "right": 0.05,
+      "bottom": 0.05,
+      "left": 0.05
+    },
+    "action": {
+      "top": 0.035,
+      "right": 0.035,
+      "bottom": 0.035,
+      "left": 0.035
+    }
+  }
+}

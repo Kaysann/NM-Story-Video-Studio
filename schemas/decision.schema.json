@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/decision/v1.json",
+  "title": "Entrée du journal des décisions artistiques (une ligne de decisions.jsonl)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ts", "by", "decision"],
+  "properties": {
+    "ts": { "type": "string", "format": "date-time" },
+    "by": { "enum": ["user", "engine"] },
+    "via": { "type": "string" },
+    "scope": { "type": "string" },
+    "decision": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string" },
+    "refs": { "type": "array", "items": { "type": "string" } }
+  }
+}

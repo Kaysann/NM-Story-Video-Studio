@@ -1,0 +1,15 @@
+{
+  "family": "reels-weights",
+  "id": "reels-narrative",
+  "description": "Priorité aux phrases complètes et au texte",
+  "value": {
+    "hook": 2,
+    "energy": 1,
+    "lift": 1,
+    "vocal": 2,
+    "completeness": 4,
+    "lyric": 3,
+    "loopability": 0.5,
+    "uniqueness": 0.5
+  }
+}

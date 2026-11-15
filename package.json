@@ -1,0 +1,41 @@
+{
+  "name": "nmsvs",
+  "version": "1.1.0",
+  "description": "NM Story Video Studio — moteur personnel de production audiovisuelle piloté par Codex",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "nmsvs": "bin/nmsvs.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "nmsvs": "tsx src/cli/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:py": ".venv\\Scripts\\python.exe -m pytest python/tests -q",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:all": "npm run typecheck && npm test && npm run test:py && npm run test:integration",
+    "studio": "remotion studio src/remotion/index.ts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.543",
+    "@remotion/cli": "4.0.543",
+    "@remotion/layout-utils": "4.0.543",
+    "@remotion/renderer": "4.0.543",
+    "ajv": "8.20.0",
+    "commander": "14.0.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}

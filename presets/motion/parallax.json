@@ -1,0 +1,18 @@
+{
+  "family": "motion",
+  "id": "parallax",
+  "description": "Parallaxe deux calques (premier plan fourni)",
+  "value": {
+    "type": "parallax",
+    "from": {
+      "scale": 1.06,
+      "x": 0.4
+    },
+    "to": {
+      "scale": 1.06,
+      "x": 0.6
+    },
+    "easing": "inOutSine",
+    "depth": 0.04
+  }
+}

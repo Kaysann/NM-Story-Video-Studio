@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/assets/v1.json",
+  "title": "Registre des médias (fichier humain ; sha256/size renseignés à l'import)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "images"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "path"],
+        "properties": {
+          "id": { "$ref": "../common/v1.json#/$defs/id" },
+          "path": { "$ref": "../common/v1.json#/$defs/relPath" },
+          "sha256": { "$ref": "../common/v1.json#/$defs/sha256" },
+          "size": {
+            "type": "object", "additionalProperties": false, "required": ["w", "h"],
+            "properties": { "w": { "type": "integer", "minimum": 1 }, "h": { "type": "integer", "minimum": 1 } }
+          },
+          "focal": { "$ref": "../common/v1.json#/$defs/point" },
+          "safeSubject": { "$ref": "../common/v1.json#/$defs/rect" },
+          "crops": {
+            "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/formatId" },
+            "additionalProperties": { "$ref": "../common/v1.json#/$defs/rect" }
+          },
+          "replace": {
+            "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/formatId" },
+            "additionalProperties": { "$ref": "../common/v1.json#/$defs/id" }
+          },
+          "grade": {
+            "type": "object", "additionalProperties": false,
+            "properties": {
+              "exposure": { "type": "number", "minimum": -2, "maximum": 2 },
+              "contrast": { "type": "number", "minimum": -1, "maximum": 1 },
+              "saturation": { "type": "number", "minimum": -1, "maximum": 1 },
+              "temperature": { "type": "number", "minimum": -1, "maximum": 1 },
+              "excludeFromHarmonize": { "type": "boolean" }
+            }
+          },
+          "fit": { "enum": ["cover", "contain", "blurFill"] },
+          "fits": {
+            "description": "Ajustement par format (prime sur fit) : ex. { \"9x16\": \"blurFill\" } sans modifier le 16:9",
+            "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/formatId" },
+            "additionalProperties": { "enum": ["cover", "contain", "blurFill"] }
+          },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "textures": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "path"],
+        "properties": {
+          "id": { "$ref": "../common/v1.json#/$defs/id" },
+          "path": { "$ref": "../common/v1.json#/$defs/relPath" },
+          "sha256": { "$ref": "../common/v1.json#/$defs/sha256" }
+        }
+      }
+    }
+  }
+}

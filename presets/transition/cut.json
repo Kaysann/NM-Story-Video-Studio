@@ -1,0 +1,8 @@
+{
+  "family": "transition",
+  "id": "cut",
+  "description": "Coupe sèche",
+  "value": {
+    "type": "cut"
+  }
+}

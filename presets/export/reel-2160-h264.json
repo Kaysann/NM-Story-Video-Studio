@@ -1,0 +1,24 @@
+{
+  "family": "export",
+  "id": "reel-2160-h264",
+  "description": "Reel 2160×3840 (option)",
+  "value": {
+    "format": "9x16",
+    "scale": 2,
+    "container": "mp4",
+    "video": {
+      "encoder": "libx264",
+      "crf": 18,
+      "preset": "slow",
+      "profile": "high",
+      "level": "5.1",
+      "pixFmt": "yuv420p",
+      "gopSec": 2
+    },
+    "audio": {
+      "codec": "aac",
+      "bitrateK": 320,
+      "sampleRate": 48000
+    }
+  }
+}

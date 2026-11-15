@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/timeline/v1.json",
+  "title": "Timeline déclarative (fichier humain)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "scenes"],
+  "$defs": {
+    "illustration": {
+      "type": "object", "additionalProperties": false, "required": ["asset"],
+      "properties": {
+        "asset": { "$ref": "../common/v1.json#/$defs/id" },
+        "motion": { "$ref": "../common/v1.json#/$defs/motionRef" },
+        "until": { "$ref": "../common/v1.json#/$defs/timeAnchor" },
+        "weight": { "type": "number", "exclusiveMinimum": 0 },
+        "foreground": { "$ref": "../common/v1.json#/$defs/id" }
+      }
+    },
+    "point01": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y"],
+      "properties": { "x": { "type": "number", "minimum": -0.5, "maximum": 1.5 }, "y": { "type": "number", "minimum": 0, "maximum": 1 } }
+    },
+    "sprite": {
+      "type": "object", "additionalProperties": false, "required": ["id", "frames", "height", "path", "durationSec"],
+      "description": "Personnage animé : cycle de poses (textures PNG transparentes), trajectoire linéaire du point d'appui (bas-centre, coordonnées normalisées). Temps relatifs au début de la scène.",
+      "properties": {
+        "id": { "$ref": "../common/v1.json#/$defs/id" },
+        "frames": { "type": "array", "minItems": 1, "items": { "$ref": "../common/v1.json#/$defs/id" } },
+        "poseFps": { "type": "number", "exclusiveMinimum": 0, "maximum": 30 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "path": {
+          "type": "object", "additionalProperties": false, "required": ["from", "to"],
+          "properties": { "from": { "$ref": "#/$defs/point01" }, "to": { "$ref": "#/$defs/point01" } }
+        },
+        "startSec": { "type": "number", "minimum": 0 },
+        "durationSec": { "type": "number", "exclusiveMinimum": 0 },
+        "fadeSec": { "type": "number", "minimum": 0 }
+      }
+    },
+    "sceneLyrics": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "style": { "oneOf": [{ "const": "none" }, { "$ref": "../common/v1.json#/$defs/lyricsStyleRef" }] },
+        "karaoke": { "enum": ["none", "line", "word"] },
+        "position": { "enum": ["lower-third", "center", "upper-third", "auto"] },
+        "lines": { "enum": [1, 2] }
+      }
+    }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "credits": { "$ref": "../credits/v1.json#/$defs/creditsRef" },
+    "scenes": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "span", "illustrations"],
+        "properties": {
+          "id": { "$ref": "../common/v1.json#/$defs/id" },
+          "span": {
+            "type": "object", "additionalProperties": false, "required": ["from", "to"],
+            "properties": { "from": { "$ref": "../common/v1.json#/$defs/timeAnchor" }, "to": { "$ref": "../common/v1.json#/$defs/timeAnchor" } }
+          },
+          "illustrations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/illustration" } },
+          "distribution": { "enum": ["byLines", "even", "explicit", "weights"] },
+          "illustrationTransition": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+          "lyrics": { "$ref": "#/$defs/sceneLyrics" },
+          "title": {
+            "type": "object", "additionalProperties": false, "required": ["text"],
+            "properties": {
+              "text": { "type": "string", "minLength": 1 },
+              "style": { "$ref": "../common/v1.json#/$defs/titleStyleRef" },
+              "durationSec": { "type": "number", "exclusiveMinimum": 0 }
+            }
+          },
+          "transitionIn": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+          "transitionOut": { "$ref": "../common/v1.json#/$defs/transitionRef" },
+          "effects": {
+            "type": "object", "additionalProperties": false,
+            "properties": { "vignette": { "$ref": "../common/v1.json#/$defs/unit" }, "grain": { "$ref": "../common/v1.json#/$defs/unit" } }
+          },
+          "formats": {
+            "type": "object", "propertyNames": { "$ref": "../common/v1.json#/$defs/formatId" },
+            "additionalProperties": {
+              "type": "object", "additionalProperties": false,
+              "properties": {
+                "lyrics": { "$ref": "#/$defs/sceneLyrics" },
+                "illustrations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/illustration" } }
+              }
+            }
+          },
+          "sprites": { "type": "array", "items": { "$ref": "#/$defs/sprite" } },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

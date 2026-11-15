@@ -1,0 +1,25 @@
+{
+  "family": "export",
+  "id": "youtube-4k-master",
+  "description": "Maître YouTube 4K — libx264 CRF 16 slow",
+  "value": {
+    "format": "16x9",
+    "container": "mp4",
+    "video": {
+      "encoder": "libx264",
+      "crf": 16,
+      "preset": "slow",
+      "profile": "high",
+      "level": "5.1",
+      "pixFmt": "yuv420p",
+      "gopSec": 2,
+      "bframes": 2
+    },
+    "audio": {
+      "codec": "aac",
+      "bitrateK": 320,
+      "sampleRate": 48000
+    },
+    "subtitles": true
+  }
+}

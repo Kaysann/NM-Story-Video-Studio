@@ -1,0 +1,28 @@
+{
+  "family": "lyrics",
+  "id": "lyrics-parchment-default",
+  "description": "Parchemin animé déroulé par strophe, encre brune",
+  "value": {
+    "font": "Georgia",
+    "fontSize": {
+      "min": 0.035,
+      "max": 0.055
+    },
+    "weight": 600,
+    "color": "#3B2412",
+    "accent": "#7A1F12",
+    "align": "center",
+    "lines": 2,
+    "karaoke": "line",
+    "enter": "reveal",
+    "maxWidth": 0.8,
+    "type": "parchment",
+    "position": "lower-third",
+    "parchment": {
+      "orientation": "horizontal",
+      "unrollSec": 0.8,
+      "ink": "#3B2412",
+      "float": 0.003
+    }
+  }
+}

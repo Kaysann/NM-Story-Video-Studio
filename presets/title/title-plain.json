@@ -1,0 +1,12 @@
+{
+  "family": "title",
+  "id": "title-plain",
+  "description": "Titre simple centré",
+  "value": {
+    "type": "plain",
+    "font": "Georgia",
+    "size": 0.08,
+    "color": "#F5EBDD",
+    "position": "center"
+  }
+}

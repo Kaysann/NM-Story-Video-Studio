@@ -1,0 +1,18 @@
+{
+  "family": "export",
+  "id": "archive-hevc10",
+  "description": "Archive HEVC 10 bits + FLAC (MKV)",
+  "value": {
+    "format": "16x9",
+    "container": "mkv",
+    "video": {
+      "encoder": "libx265",
+      "crf": 16,
+      "preset": "slow",
+      "pixFmt": "yuv420p10le"
+    },
+    "audio": {
+      "codec": "flac"
+    }
+  }
+}

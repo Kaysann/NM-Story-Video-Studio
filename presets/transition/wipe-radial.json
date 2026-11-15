@@ -1,0 +1,12 @@
+{
+  "family": "transition",
+  "id": "wipe-radial",
+  "description": "Volet radial",
+  "value": {
+    "type": "wipe",
+    "duration": {
+      "beats": 2
+    },
+    "shape": "radial"
+  }
+}

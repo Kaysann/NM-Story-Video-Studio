@@ -1,0 +1,24 @@
+{
+  "family": "export",
+  "id": "reel-1080-h264",
+  "description": "Reel 1080×1920 — libx264 CRF 18 slow",
+  "value": {
+    "format": "9x16",
+    "container": "mp4",
+    "video": {
+      "encoder": "libx264",
+      "crf": 18,
+      "preset": "slow",
+      "profile": "high",
+      "level": "4.2",
+      "pixFmt": "yuv420p",
+      "gopSec": 2,
+      "bframes": 2
+    },
+    "audio": {
+      "codec": "aac",
+      "bitrateK": 256,
+      "sampleRate": 48000
+    }
+  }
+}

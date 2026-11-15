@@ -1,0 +1,12 @@
+{
+  "family": "transition",
+  "id": "slide-left",
+  "description": "Glissé vers la gauche",
+  "value": {
+    "type": "slide",
+    "duration": {
+      "beats": 2
+    },
+    "direction": "left"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "family": "transition",
+  "id": "zoom-through",
+  "description": "Zoom traversant",
+  "value": {
+    "type": "zoom-through",
+    "duration": {
+      "beats": 2
+    }
+  }
+}

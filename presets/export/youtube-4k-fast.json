@@ -1,0 +1,22 @@
+{
+  "family": "export",
+  "id": "youtube-4k-fast",
+  "description": "YouTube 4K rapide — AMD AMF HEVC",
+  "value": {
+    "format": "16x9",
+    "container": "mp4",
+    "video": {
+      "encoder": "hevc_amf",
+      "qp": 20,
+      "preset": "quality",
+      "pixFmt": "yuv420p",
+      "gopSec": 2
+    },
+    "audio": {
+      "codec": "aac",
+      "bitrateK": 320,
+      "sampleRate": 48000
+    },
+    "subtitles": true
+  }
+}

@@ -1,0 +1,37 @@
+NM Story Video Studio (NMSVS)
+Copyright 2026 NIMOTORY
+
+This product is licensed under the Apache License, Version 2.0 (see the LICENSE file).
+
+Scope of the license
+--------------------
+The Apache License 2.0 applies only to the original source code, schemas, presets,
+synthetic test fixtures, reference test images and documentation contained in this
+repository.
+
+It does NOT apply to:
+  * third-party software used by NMSVS (Node.js packages, Python packages, FFmpeg,
+    Remotion, AI models), which remain under their own licenses;
+  * NM Story artistic works (music, lyrics, illustrations, covers, videos), which are
+    NOT included in this repository and are not licensed.
+
+Third-party software
+--------------------
+NMSVS does not redistribute third-party software: dependencies are downloaded by the
+user (npm, pip) and AI models are downloaded on first use. Users must comply with each
+dependency's license separately, in particular:
+  * Remotion (remotion, @remotion/*): Remotion License — free for individuals and small
+    teams, a company license is required otherwise (https://www.remotion.dev/license);
+  * FFmpeg (external tool, LGPL/GPL depending on the build);
+  * PyTorch, WhisperX, faster-whisper, CTranslate2, librosa, pyannote.audio, stable-ts,
+    transformers and their dependencies;
+  * AI model weights (e.g. faster-whisper / Whisper, wav2vec2 French alignment model),
+    each under its own license and terms.
+
+See docs/LICENCES_TIERS.md for details.
+
+Development
+-----------
+NMSVS was developed with the assistance of AI coding agents (OpenAI Codex, Anthropic
+Claude Code) under human direction: requirements, artistic and technical decisions,
+reviews and acceptance were made by the author.

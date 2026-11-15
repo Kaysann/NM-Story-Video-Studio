@@ -1,0 +1,12 @@
+{
+  "family": "transition",
+  "id": "page-turn",
+  "description": "Page tournée (livre illustré) : la page sortante pivote sur sa reliure avec perspective et ombre, la suivante apparaît dessous. direction « left » = reliure à gauche (sens de lecture), « right » = reliure à droite",
+  "value": {
+    "type": "page-turn",
+    "duration": {
+      "beats": 4
+    },
+    "direction": "left"
+  }
+}

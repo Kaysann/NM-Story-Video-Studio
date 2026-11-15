@@ -1,0 +1,15 @@
+{
+  "family": "reels-weights",
+  "id": "reels-balanced",
+  "description": "Équilibré (défaut)",
+  "value": {
+    "hook": 3,
+    "energy": 2,
+    "lift": 2,
+    "vocal": 1.5,
+    "completeness": 2,
+    "lyric": 1,
+    "loopability": 1,
+    "uniqueness": 0.5
+  }
+}

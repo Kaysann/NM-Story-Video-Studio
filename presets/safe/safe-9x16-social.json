@@ -1,0 +1,19 @@
+{
+  "family": "safe",
+  "id": "safe-9x16-social",
+  "description": "Hypothèse de travail [H] : interfaces Reels/Shorts/TikTok (à vérifier régulièrement)",
+  "value": {
+    "title": {
+      "top": 0.12,
+      "right": 0.12,
+      "bottom": 0.22,
+      "left": 0.05
+    },
+    "action": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.12,
+      "left": 0.03
+    }
+  }
+}

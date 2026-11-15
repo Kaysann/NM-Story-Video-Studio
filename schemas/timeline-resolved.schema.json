@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nmsvs.local/schemas/timeline-resolved/v1.json",
+  "title": "Timeline résolue (fichier machine, en images et pixels) — contrat avec Remotion",
+  "type": "object",
+  "required": ["version", "format", "width", "height", "fps", "durationInFrames", "safe", "shots", "lyrics", "titles", "fades", "effects", "fonts"],
+  "properties": {
+    "version": { "const": 1 },
+    "format": { "$ref": "../common/v1.json#/$defs/formatId" },
+    "width": { "type": "integer" }, "height": { "type": "integer" },
+    "fps": { "type": "number" },
+    "durationInFrames": { "type": "integer", "minimum": 1 },
+    "prerollFrames": { "type": "integer", "minimum": 0, "description": "Images de préambule avant le début du master audio (temps chanson 0 = cette image)" },
+    "assetBaseUrl": { "type": "string" },
+    "safe": { "type": "object" },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "sceneId", "from", "to", "src", "srcW", "srcH", "fit", "motion", "z"],
+        "properties": { "from": { "type": "integer", "minimum": 0 }, "to": { "type": "integer", "minimum": 1 } }
+      }
+    },
+    "sprites": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "sceneId", "from", "to", "frames", "poseFps", "height", "path", "fadeFrames", "z"],
+        "properties": { "from": { "type": "integer", "minimum": 0 }, "to": { "type": "integer", "minimum": 1 }, "frames": { "type": "array", "minItems": 1, "items": { "type": "string" } } }
+      }
+    },
+    "lyrics": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "from", "to", "lines", "words", "style", "fontSize", "box", "groupId", "groupFrom", "groupTo", "groupBox"],
+        "properties": { "style": { "type": "object", "required": ["type"], "properties": { "type": { "enum": ["text-on-image", "parchment", "cartouche"] } } } }
+      }
+    },
+    "titles": { "type": "array" },
+    "fades": { "type": "array" },
+    "effects": { "type": "object", "required": ["vignette", "grain"] },
+    "fonts": { "type": "array" },
+    "showSafe": { "type": "boolean" }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "family": "export",
+  "id": "draft-16x9",
+  "description": "Brouillon 16:9 25 % — AMF",
+  "value": {
+    "format": "16x9",
+    "scale": 0.25,
+    "container": "mp4",
+    "video": {
+      "encoder": "h264_amf",
+      "qp": 24,
+      "pixFmt": "yuv420p"
+    },
+    "audio": {
+      "codec": "aac",
+      "bitrateK": 160,
+      "sampleRate": 48000
+    }
+  }
+}

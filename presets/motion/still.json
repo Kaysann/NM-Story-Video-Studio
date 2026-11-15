@@ -1,0 +1,15 @@
+{
+  "family": "motion",
+  "id": "still",
+  "description": "Plan quasi fixe (respiration 0,5 %)",
+  "value": {
+    "type": "still",
+    "from": {
+      "scale": 1
+    },
+    "to": {
+      "scale": 1.005
+    },
+    "easing": "linear"
+  }
+}

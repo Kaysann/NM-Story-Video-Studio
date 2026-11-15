@@ -1,0 +1,12 @@
+{
+  "family": "transition",
+  "id": "dip-to-color",
+  "description": "Passage par la couleur d’accent",
+  "value": {
+    "type": "dip-color",
+    "duration": {
+      "beats": 2
+    },
+    "color": "#F5EBDD"
+  }
+}
